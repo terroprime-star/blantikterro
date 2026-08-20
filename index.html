@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOTORIN - Marketplace Motor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+:root{--primary:#ff4d00;--dark:#111827;--bg:#f5f6f8;--card:#fff;--text:#171717;--muted:#6b7280}
+body{background:var(--bg);color:var(--text);transition:.3s}
+header{background:var(--dark);color:white;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:25px;font-weight:bold}.logo span{color:var(--primary)}
+nav{display:flex;gap:25px}nav a{color:white;text-decoration:none;font-size:14px}
+.header-buttons{display:flex;gap:10px}.icon-btn{border:0;background:#374151;color:white;padding:10px 13px;border-radius:8px;cursor:pointer}
+.hero{min-height:430px;display:flex;align-items:center;padding:60px 7%;background:linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.25)),url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1600&q=85");background-size:cover;background-position:center;color:white}
+.hero-content{max-width:600px}.hero h1{font-size:50px;line-height:1.1;margin-bottom:18px}.hero h1 span{color:#ff5a00}.hero p{font-size:18px;color:#ddd;margin-bottom:28px}.hero button,.sell button{padding:15px 25px;border:0;border-radius:9px;background:var(--primary);color:white;font-weight:bold;cursor:pointer}
+.search-box{width:86%;max-width:1100px;margin:-35px auto 40px;background:white;padding:20px;border-radius:15px;box-shadow:0 8px 30px rgba(0,0,0,.15);position:relative;z-index:10}
+.search-row{display:flex;gap:10px}.search-row input,.search-row select{flex:1;padding:15px;border:1px solid #ddd;border-radius:9px;outline:none}.search-btn{background:var(--primary);color:white;border:0;padding:0 25px;border-radius:9px;cursor:pointer}
+.container{width:86%;max-width:1200px;margin:auto}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.section-title h2{font-size:27px}.section-title p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;padding-bottom:60px}
+.card{background:var(--card);border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.08);transition:.2s}.card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.13)}
+.image-box{position:relative;height:210px;overflow:hidden}.image-box img{width:100%;height:100%;object-fit:cover;transition:.3s}.card:hover img{transform:scale(1.05)}
+.badge{position:absolute;top:12px;left:12px;background:var(--primary);color:white;padding:6px 10px;border-radius:6px;font-size:12px;font-weight:bold}
+.favorite{position:absolute;right:12px;top:12px;border:0;background:white;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:19px}
+.content{padding:18px}.content h3{margin-bottom:8px}.info{color:var(--muted);font-size:14px;margin-bottom:8px}.price{font-size:21px;font-weight:bold;color:var(--primary);margin:12px 0}
+.card-buttons{display:flex;gap:8px}.detail-btn,.wa-btn{flex:1;padding:11px;border:0;border-radius:8px;cursor:pointer;font-weight:bold}.detail-btn{background:#e5e7eb}.wa-btn{background:#22c55e;color:white}
+.sell{background:linear-gradient(135deg,#111827,#1f2937);color:white;padding:50px 8%;margin-top:20px;text-align:center}.sell h2{font-size:30px;margin-bottom:10px}.sell p{color:#d1d5db;margin-bottom:20px}
+footer{background:#0b0f19;color:#aaa;padding:40px 7%;display:flex;justify-content:space-between}footer h3{color:white;margin-bottom:10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px}.modal-box{background:white;width:100%;max-width:550px;border-radius:15px;overflow:hidden;max-height:90vh;overflow-y:auto}.modal-image{width:100%;height:280px;object-fit:cover}.modal-content{padding:25px}.close{float:right;border:0;background:#eee;width:35px;height:35px;border-radius:50%;cursor:pointer}
+body.dark{--bg:#0f172a;--card:#1e293b;--text:white;--muted:#cbd5e1}body.dark .search-box{background:#1e293b}body.dark .search-row input,body.dark .search-row select{background:#334155;color:white;border-color:#475569}body.dark .detail-btn{background:#475569;color:white}
+@media(max-width:700px){header{padding:14px 5%}nav{display:none}.hero{min-height:400px;padding:50px 7%}.hero h1{font-size:38px}.search-box{width:92%}.search-row{flex-direction:column}.search-btn{padding:13px}.container{width:92%}footer{flex-direction:column;gap:20px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">MOTOR<span>IN</span></div>
+<nav><a href="#">Beranda</a><a href="#motor">Motor</a><a href="#jual">Jual Motor</a><a href="#kontak">Kontak</a></nav>
+<div class="header-buttons"><button class="icon-btn" onclick="darkMode()">🌙</button></div>
+</header>
+
+<section class="hero"><div class="hero-content"><h1>Temukan Motor <span>Impianmu.</span></h1><p>Marketplace jual beli motor terpercaya. Cari motor bekas maupun baru dengan harga terbaik.</p><button onclick="document.getElementById('motor').scrollIntoView()">🔎 Lihat Motor</button></div></section>
+
+<div class="search-box"><div class="search-row">
+<input type="text" id="search" placeholder="Cari Honda Vario, NMAX, Beat..." onkeyup="filterMotor()">
+<select id="brand" onchange="filterMotor()"><option value="semua">Semua Merek</option><option value="Honda">Honda</option><option value="Yamaha">Yamaha</option><option value="Suzuki">Suzuki</option></select>
+<select id="price" onchange="filterMotor()"><option value="semua">Semua Harga</option><option value="20">Di bawah Rp20 Juta</option><option value="30">Rp20 - 30 Juta</option><option value="40">Rp30 - 40 Juta</option></select>
+<button class="search-btn" onclick="filterMotor()">Cari</button>
+</div></div>
+
+<section class="container" id="motor">
+<div class="section-title"><div><h2>🔥 Motor Pilihan</h2><p>Motor terbaik pilihan kami</p></div></div>
+<div class="grid" id="motorList">
+
+<div class="card" data-brand="Honda" data-name="Honda Vario 160" data-price="24.5">
+<div class="image-box"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85"><span class="badge">TERLARIS</span><button class="favorite" onclick="favorite(this)">♡</button></div>
+<div class="content"><h3>Honda Vario 160</h3><p class="info">2023 • Matic • 8.000 KM</p><p class="price">Rp 24.500.000</p><div class="card-buttons">
+<button class="detail-btn" onclick="detail('Honda Vario 160','Rp 24.500.000','2023 • Matic • 8.000 KM','https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85')">Detail</button><button class="wa-btn" onclick="whatsapp('Honda Vario 160')">WhatsApp</button>
+</div></div></div>
+
+<div class="card" data-brand="Yamaha" data-name="Yamaha NMAX 155" data-price="27">
+<div class="image-box"><img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=900&q=85"><span class="badge">MULUS</span><button class="favorite" onclick="favorite(this)">♡</button></div>
+<div class="content"><h3>Yamaha NMAX 155</h3><p class="info">2022 • Matic • 12.000 KM</p><p class="price">Rp 27.000.000</p><div class="card-buttons">
+<button class="detail-btn" onclick="detail('Yamaha NMAX 155','Rp 27.000.000','2022 • Matic • 12.000 KM','https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=900&q=85')">Detail</button><button class="wa-btn" onclick="whatsapp('Yamaha NMAX 155')">WhatsApp</button>
+</div></div></div>
+
+<div class="card" data-brand="Yamaha" data-name="Yamaha Aerox 155" data-price="26.5">
+<div class="image-box"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=85"><button class="favorite" onclick="favorite(this)">♡</button></div>
+<div class="content"><h3>Yamaha Aerox 155</h3><p class="info">2023 • Matic • 6.000 KM</p><p class="price">Rp 26.500.000</p><div class="card-buttons">
+<button class="detail-btn" onclick="detail('Yamaha Aerox 155','Rp 26.500.000','2023 • Matic • 6.000 KM','https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=85')">Detail</button><button class="wa-btn" onclick="whatsapp('Yamaha Aerox 155')">WhatsApp</button>
+</div></div></div>
+
+<div class="card" data-brand="Honda" data-name="Honda CBR 150R" data-price="31">
+<div class="image-box"><img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=85"><span class="badge">SPORT</span><button class="favorite" onclick="favorite(this)">♡</button></div>
+<div class="content"><h3>Honda CBR 150R</h3><p class="info">2022 • Sport • 10.000 KM</p><p class="price">Rp 31.000.000</p><div class="card-buttons">
+<button class="detail-btn" onclick="detail('Honda CBR 150R','Rp 31.000.000','2022 • Sport • 10.000 KM','https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=85')">Detail</button><button class="wa-btn" onclick="whatsapp('Honda CBR 150R')">WhatsApp</button>
+</div></div></div>
+
+</div></section>
+
+<section class="sell" id="jual"><h2>📢 Mau Jual Motor?</h2><p>Pasang iklan motor kamu dan temukan pembeli dengan cepat.</p><button onclick="jualMotor()">+ Jual Motor Sekarang</button></section>
+
+<footer id="kontak"><div><h3>MOTORIN</h3><p>Marketplace jual beli motor.</p></div><div><h3>Kontak</h3><p>WhatsApp: 0851-2297-7572</p></div></footer>
+
+<div class="modal" id="modal"><div class="modal-box"><img id="modalImage" class="modal-image"><div class="modal-content"><button class="close" onclick="closeModal()">✕</button><h2 id="modalName"></h2><p id="modalInfo" style="margin-top:10px;color:#777"></p><h2 id="modalPrice" style="color:#ff4d00;margin:15px 0"></h2><p style="line-height:1.7">Motor dalam kondisi baik dan siap digunakan. Surat-surat lengkap. Hubungi penjual untuk informasi lebih lanjut dan negosiasi harga.</p><br><button class="wa-btn" style="width:100%;padding:14px" onclick="whatsapp(currentMotor)">💬 Hubungi Penjual via WhatsApp</button></div></div></div>
+
+<script>
+let currentMotor="";
+function filterMotor(){
+let search=document.getElementById("search").value.toLowerCase(),brand=document.getElementById("brand").value,price=document.getElementById("price").value;
+document.querySelectorAll(".card").forEach(card=>{
+let name=card.dataset.name.toLowerCase(),b=card.dataset.brand,p=parseFloat(card.dataset.price);
+let nameOK=name.includes(search),brandOK=brand==="semua"||b===brand,priceOK=true;
+if(price==="20")priceOK=p<20;
+if(price==="30")priceOK=p>=20&&p<=30;
+if(price==="40")priceOK=p>30&&p<=40;
+card.style.display=nameOK&&brandOK&&priceOK?"block":"none";
+});}
+function favorite(button){button.innerHTML=button.innerHTML==="♡"?"❤️":"♡";}
+function detail(name,price,info,image){currentMotor=name;document.getElementById("modalName").innerText=name;document.getElementById("modalPrice").innerText=price;document.getElementById("modalInfo").innerText=info;document.getElementById("modalImage").src=image;document.getElementById("modal").style.display="flex";}
+function closeModal(){document.getElementById("modal").style.display="none";}
+function whatsapp(motor){let nomor="6285122977572";let pesan="Halo, saya tertarik dengan motor "+motor+". Apakah masih tersedia?";window.open("https://wa.me/"+nomor+"?text="+encodeURIComponent(pesan),"_blank");}
+function jualMotor(){alert("Fitur pasang iklan siap digunakan! Silakan hubungi admin untuk memasang motor.");}
+function darkMode(){document.body.classList.toggle("dark");}
+</script>
+</body>
+</html>
